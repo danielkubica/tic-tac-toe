@@ -1,0 +1,33 @@
+.marked-o {
+  display: grid;
+  place-items: center;
+}
+
+.circle {
+  display: none;
+  place-items: center;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background-color: black;
+}
+
+.inner-circle {
+  display: none;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.item:hover .inner-circle {
+  background-color: #d6d6d6;
+}
+
+.circle-showed {
+  display: grid;
+}
+
+.inner-circle-showed {
+  display: block;
+}

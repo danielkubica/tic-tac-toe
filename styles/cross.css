@@ -1,0 +1,35 @@
+.marked-x {
+  position: relative;
+}
+
+.line1 {
+  display: none;
+  background-color: black;
+  width: 90%;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transform-origin: center;
+}
+
+.line2 {
+  display: none;
+  background-color: black;
+  width: 90%;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transform-origin: center;
+}
+
+.line1-showed {
+  display: block;
+}
+
+.line2-showed {
+  display: block;
+}
