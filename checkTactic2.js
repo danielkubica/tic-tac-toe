@@ -1,12 +1,4 @@
-const it1 = document.querySelector('.it1');
-const it2 = document.querySelector('.it2');
-const it3 = document.querySelector('.it3');
-const it4 = document.querySelector('.it4');
-const it5 = document.querySelector('.it5');
-const it6 = document.querySelector('.it6');
-const it7 = document.querySelector('.it7');
-const it8 = document.querySelector('.it8');
-const it9 = document.querySelector('.it9');
+import { it1, it2, it3, it4, it5, it6, it7, it8, it9 } from './app2.js';
 
 function checkTactic2() {
   if (
