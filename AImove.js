@@ -1,4 +1,5 @@
 import { items } from './app2.js';
+import { setO } from './setX-setO.js';
 
 function AImove() {
   let i = false;
