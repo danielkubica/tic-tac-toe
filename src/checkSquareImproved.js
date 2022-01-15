@@ -1,6 +1,6 @@
-import { it1, it2, it3, it4, it5, it6, it7, it8, it9 } from './app2.js';
+import { it1, it2, it3, it4, it5, it6, it7, it8, it9 } from '../app2.js';
 
-function AIwinMove() {
+function checkSquareImproved() {
   const groups = [
     // Line groups
     [it1, it2, it3],
@@ -32,15 +32,15 @@ function AIwinMove() {
         return;
       }
 
-      if (group[i].classList.contains('marked-o')) {
+      if (group[i].classList.contains('marked-x')) {
         startingVariable++;
         // console.log(startingVariable);
       }
       if (startingVariable === 2) {
         unmarkedItem = group.filter((item) => {
-          return !item.classList.contains('marked-o');
+          return !item.classList.contains('marked-x');
         });
-        // console.log('O has won');
+        // console.log('TWO TOGETHER');
         break;
       }
     }
@@ -49,4 +49,4 @@ function AIwinMove() {
   return unmarkedItem;
 }
 
-export default AIwinMove;
+export default checkSquareImproved;

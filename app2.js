@@ -1,14 +1,14 @@
-import { setX, setO } from './setX-setO.js';
-import { setSymbolX, setSymbolO } from './setSymbol.js';
-import checkSquare from './checkSquareImproved.js';
-import checkWin from './checkWin.js';
-import checkTactic2 from './checkTactic2.js';
-import afterTactic2 from './afterCheckTactic2.js';
-import AIwinMove from './AIwinMove.js';
-import AImove from './AImove.js';
-import checkCorner from './checkCorner.js';
-import checkTwoCorneres from './checkTwoCorners.js';
-import checkMiddleTactic from './checkMiddleTactic.js';
+import { setX, setO } from './src/setX-setO.js';
+import { setSymbolX, setSymbolO } from './src/setSymbol.js';
+import checkSquare from './src/checkSquareImproved.js';
+import checkWin from './src/checkWin.js';
+import checkTactic2 from './src/checkTactic2.js';
+import afterTactic2 from './src/afterCheckTactic2.js';
+import AIwinMove from './src/AIwinMove.js';
+import AImove from './src/AImove.js';
+import checkCorner from './src/checkCorner.js';
+import checkTwoCorneres from './src/checkTwoCorners.js';
+import checkMiddleTactic from './src/checkMiddleTactic.js';
 
 // starting symbol and table values
 let startingSymbol;
