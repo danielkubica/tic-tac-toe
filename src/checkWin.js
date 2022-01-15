@@ -26,7 +26,7 @@ function checkWin() {
     if (everyX) {
       console.log('WIN-X');
       // need to add win conditions for both X and O sparate
-      win = true;
+      win = 'win-x';
       break;
     }
 
@@ -35,7 +35,7 @@ function checkWin() {
     });
     if (everyO) {
       console.log('WIN-O');
-      win = true;
+      win = 'win-o';
       break;
     }
   }
