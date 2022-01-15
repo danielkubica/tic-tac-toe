@@ -16,6 +16,7 @@ let startingSymbol;
 // selecting items
 const btnX = document.querySelector('.x');
 const btnO = document.querySelector('.o');
+const resetBtn = document.querySelector('.reset-btn');
 export const items = document.querySelectorAll('.item');
 export const it1 = document.querySelector('.it1');
 export const it2 = document.querySelector('.it2');
@@ -26,6 +27,11 @@ export const it6 = document.querySelector('.it6');
 export const it7 = document.querySelector('.it7');
 export const it8 = document.querySelector('.it8');
 export const it9 = document.querySelector('.it9');
+
+// === reset game === //
+resetBtn.addEventListener('click', () => {
+  location.reload();
+});
 
 // === setting value to the startingSymbol === //
 btnX.addEventListener('click', (e) => {
