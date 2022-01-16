@@ -1,8 +1,24 @@
-import { setX, setO } from './setX-setO.js';
-import { setSymbolX, setSymbolO } from './setSymbol.js';
-import checkSquare from './checkSquareImproved.js';
-import checkWin from './checkWin.js';
-import checkTactic2 from './checkTactic2.js';
+import { setX, setO } from './src/setX-setO.js';
+import { setSymbolX, setSymbolO } from './src/setSymbol.js';
+import checkSquare from './src/checkSquareImproved.js';
+import checkWin from './src/checkWin.js';
+import checkTactic2 from './src/checkTactic2.js';
+import afterTactic2 from './src/afterCheckTactic2.js';
+import AIwinMove from './src/AIwinMove.js';
+import AImove from './src/AImove.js';
+import checkCorner from './src/checkCorner.js';
+import checkTwoCorneres from './src/checkTwoCorners.js';
+import checkMiddleTactic from './src/checkMiddleTactic.js';
+
+// === modules for if O selected === //
+import checkMiddleTactic_O from './src/for_symbol_O/checkMiddle_O.js';
+import checkTactic2_O from './src/for_symbol_O/checkTactic2_O.js';
+import afterTactic2_O from './src/for_symbol_O/afterCheckTactic2_O.js';
+import AIwinMove_O from './src/for_symbol_O/AIwinMove_O.js';
+import checkCorner_O from './src/for_symbol_O/checkCorner_O.js';
+import checkTwoCorneres_O from './src/for_symbol_O/checkTwoCorners_O.js';
+import checkSquare_O from './src/for_symbol_O/checkSquare_O.js';
+import AImove_O from './src/for_symbol_O/AImove_O.js';
 
 // starting symbol and table values
 let startingSymbol;
@@ -10,161 +26,309 @@ let startingSymbol;
 // selecting items
 const btnX = document.querySelector('.x');
 const btnO = document.querySelector('.o');
-const items = document.querySelectorAll('.item');
-const it1 = document.querySelector('.it1');
-const it2 = document.querySelector('.it2');
-const it3 = document.querySelector('.it3');
-const it4 = document.querySelector('.it4');
-const it5 = document.querySelector('.it5');
-const it6 = document.querySelector('.it6');
-const it7 = document.querySelector('.it7');
-const it8 = document.querySelector('.it8');
-const it9 = document.querySelector('.it9');
+const resetBtn = document.querySelector('.reset-btn');
+export const items = document.querySelectorAll('.item');
+export const it1 = document.querySelector('.it1');
+export const it2 = document.querySelector('.it2');
+export const it3 = document.querySelector('.it3');
+export const it4 = document.querySelector('.it4');
+export const it5 = document.querySelector('.it5');
+export const it6 = document.querySelector('.it6');
+export const it7 = document.querySelector('.it7');
+export const it8 = document.querySelector('.it8');
+export const it9 = document.querySelector('.it9');
 
-// setting value to the startingSymbol
+// === reset game === //
+resetBtn.addEventListener('click', () => {
+  location.reload();
+});
+
+// === setting value to the startingSymbol === //
 btnX.addEventListener('click', (e) => {
-  startingSymbol = setSymbolX(startingSymbol, e);
+  if (startingSymbol === 0) {
+    console.log('you already picked a symbol');
+    return;
+  } else {
+    startingSymbol = setSymbolX(e);
+  }
 });
 btnO.addEventListener('click', (e) => {
-  startingSymbol = setSymbolO(startingSymbol, e);
+  if (startingSymbol === 1) {
+    console.log('you already picked a symbol');
+    return;
+  } else {
+    startingSymbol = setSymbolO(e);
+  }
 });
 
-//==== Moves ====//
+let afterMiddleTactic = null;
+
+//==== moves ====//
 items.forEach((item) => {
   item.addEventListener('click', (e) => {
     const item = e.currentTarget;
+
+    // === X selected as starting symbol === //
     if (
       startingSymbol === 1 &&
       !e.currentTarget.classList.contains('marked-x') &&
       !e.currentTarget.classList.contains('marked-o')
     ) {
-      // player move
+      // === player move setting X === //
       setX(item);
       let winX = checkWin();
-      if (winX === true) {
+      if (winX === 'win-x') {
         return;
       } else {
-        // PC move
+        // === if Player didn't win then PC move plays === //
         setTimeout(() => {
-          if (checkTactic2() === 1) {
-            let randomNumber = Math.ceil(Math.random() * 3);
-            switch (randomNumber) {
-              case 1:
-                setO(it3);
-                break;
-              case 2:
-                setO(it2);
-                break;
-              case 3:
-                setO(it8);
-                break;
+          // === checking middle tactic === //
+          let checkMiddle = checkMiddleTactic();
+
+          // === if middle tactic false program continues === //
+          if (!checkMiddle) {
+            if (!afterMiddleTactic) {
+              // === after tactic 2 === //
+              if (afterTactic2(checkTactic2) === true) {
+                return;
+              }
+
+              // === PC win move if two Os are togeher ===//
+              let twoOtogether = AIwinMove();
+              if (twoOtogether) {
+                console.log(twoOtogether);
+                let div = twoOtogether[0];
+                setO(div);
+                let winO = checkWin();
+                if (winO === 'win-o') {
+                  return;
+                }
+                return;
+              }
+
+              // === check corner 1 === //
+              if (checkCorner()) {
+                setO(it5);
+                return;
+              }
+
+              // === check corner 2 === //
+              if (checkTwoCorneres()) {
+                let randomNumber = Math.ceil(Math.random() * 4);
+                switch (randomNumber) {
+                  case 1:
+                    setO(it2);
+                    break;
+                  case 2:
+                    setO(it4);
+                    break;
+                  case 3:
+                    setO(it6);
+                    break;
+                  case 4:
+                    setO(it8);
+                    break;
+                }
+                return;
+              }
+
+              // === checking if two Xs are together === //
+              let twoTogether = checkSquare();
+              if (twoTogether) {
+                console.log(twoTogether);
+                let div = twoTogether[0];
+                setO(div);
+              } else {
+                // === random PC move if everything else not valid === //
+                AImove();
+              }
             }
-            return;
-          }
-          if (checkTactic2() === 2) {
-            let randomNumber = Math.ceil(Math.random() * 3);
-            switch (randomNumber) {
-              case 1:
-                setO(it1);
-                break;
-              case 2:
-                setO(it2);
-                break;
-              case 3:
-                setO(it8);
-                break;
+            // === this executes if middle tactic was played === //
+            else {
+              switch (afterMiddleTactic) {
+                case 1:
+                  if (it3.classList[2] === undefined) {
+                    setO(it3);
+                  } else {
+                    setO(it7);
+                  }
+                  afterMiddleTactic = undefined;
+                  break;
+                case 2:
+                  if (it1.classList[2] === undefined) {
+                    setO(it1);
+                  } else {
+                    setO(it9);
+                  }
+                  afterMiddleTactic = undefined;
+                  break;
+                case 3:
+                  if (it1.classList[2] === undefined) {
+                    setO(it1);
+                  } else {
+                    setO(it9);
+                  }
+                  afterMiddleTactic = undefined;
+                  break;
+                case 4:
+                  if (it3.classList[2] === undefined) {
+                    setO(it3);
+                  } else {
+                    setO(it7);
+                  }
+                  afterMiddleTactic = undefined;
+                  break;
+              }
             }
-            return;
           }
-          if (checkTactic2() === 3) {
-            let randomNumber = Math.ceil(Math.random() * 3);
-            switch (randomNumber) {
-              case 1:
-                setO(it2);
-                break;
-              case 2:
-                setO(it8);
-                break;
-              case 3:
-                setO(it9);
-                break;
-            }
-            return;
-          }
-          if (checkTactic2() === 4) {
-            let randomNumber = Math.ceil(Math.random() * 3);
-            switch (randomNumber) {
-              case 1:
-                setO(it2);
-                break;
-              case 2:
-                setO(it7);
-                break;
-              case 3:
-                setO(it8);
-                break;
-            }
-            return;
-          }
-          let twoOtogether = AIwinMove();
-          if (twoOtogether) {
-            console.log(twoOtogether);
-            let div = twoOtogether[0];
-            setO(div);
-            return;
-          }
-          if (checkCorner()) {
-            setO(it5);
-            return;
-          }
-          if (checkTwoCorneres()) {
-            let randomNumber = Math.ceil(Math.random() * 4);
-            switch (randomNumber) {
-              case 1:
-                setO(it2);
-                break;
-              case 2:
-                setO(it4);
-                break;
-              case 3:
-                setO(it6);
-                break;
-              case 4:
-                setO(it8);
-                break;
-            }
-            return;
-          }
-          let twoTogether = checkSquare();
-          if (twoTogether) {
-            console.log(twoTogether);
-            let div = twoTogether[0];
-            setO(div);
-          } else {
-            AImove();
-          }
-          if (checkWin() === true) {
-            return;
+          // === middle tactic true then this execution === //
+          else if (checkMiddle === 1) {
+            setO(it1);
+            afterMiddleTactic = 1;
+          } else if (checkMiddle === 2) {
+            setO(it3);
+            afterMiddleTactic = 2;
+          } else if (checkMiddle === 3) {
+            setO(it7);
+            afterMiddleTactic = 3;
+          } else if (checkMiddle === 4) {
+            setO(it9);
+            afterMiddleTactic = 4;
           }
         }, 200);
       }
-    } else if (startingSymbol === 0) {
-      // Player move
-      setO(item);
-
-      // PC move
-      setTimeout(() => {
-        let twoTogether = checkSquare();
-        if (twoTogether) {
-          console.log(twoTogether);
-          let div = twoTogether[0];
-          setO(div);
-        } else {
-          AImove();
-        }
-      }, 200);
     }
 
+    // ============================================================================================================================================ //
+
+    // === O selected as starting symbol === //
+    else if (startingSymbol === 0) {
+      // === player move setting O === //
+      setO(item);
+      let winX = checkWin();
+      if (winX === 'win-o') {
+        return;
+      } else {
+        // === if Player didn't win then PC move plays === //
+        setTimeout(() => {
+          // === checking middle tactic === //
+          let checkMiddle = checkMiddleTactic_O();
+
+          // === if middle tactic false program continues === //
+          if (!checkMiddle) {
+            if (!afterMiddleTactic) {
+              // === after tactic 2 === //
+              if (afterTactic2_O(checkTactic2_O) === true) {
+                return;
+              }
+
+              // === PC win move if two Os are togeher ===//
+              let twoOtogether = AIwinMove_O();
+              if (twoOtogether) {
+                console.log(twoOtogether);
+                let div = twoOtogether[0];
+                setX(div);
+                let winO = checkWin();
+                if (winO === 'win-x') {
+                  return;
+                }
+                return;
+              }
+
+              // === check corner 1 === //
+              if (checkCorner_O()) {
+                setX(it5);
+                return;
+              }
+
+              // === check corner 2 === //
+              if (checkTwoCorneres_O()) {
+                let randomNumber = Math.ceil(Math.random() * 4);
+                switch (randomNumber) {
+                  case 1:
+                    setX(it2);
+                    break;
+                  case 2:
+                    setX(it4);
+                    break;
+                  case 3:
+                    setX(it6);
+                    break;
+                  case 4:
+                    setX(it8);
+                    break;
+                }
+                return;
+              }
+
+              // === checking if two Xs are together === //
+              let twoTogether = checkSquare_O();
+              if (twoTogether) {
+                console.log(twoTogether);
+                let div = twoTogether[0];
+                setX(div);
+              } else {
+                // === random PC move if everything else not valid === //
+                AImove_O();
+              }
+            }
+            // === this executes if middle tactic was played === //
+            else {
+              switch (afterMiddleTactic) {
+                case 1:
+                  if (it3.classList[2] === undefined) {
+                    setX(it3);
+                  } else {
+                    setX(it7);
+                  }
+                  afterMiddleTactic = undefined;
+                  break;
+                case 2:
+                  if (it1.classList[2] === undefined) {
+                    setX(it1);
+                  } else {
+                    setX(it9);
+                  }
+                  afterMiddleTactic = undefined;
+                  break;
+                case 3:
+                  if (it1.classList[2] === undefined) {
+                    setX(it1);
+                  } else {
+                    setX(it9);
+                  }
+                  afterMiddleTactic = undefined;
+                  break;
+                case 4:
+                  if (it3.classList[2] === undefined) {
+                    setX(it3);
+                  } else {
+                    setX(it7);
+                  }
+                  afterMiddleTactic = undefined;
+                  break;
+              }
+            }
+          }
+          // === middle tactic true then this execution === //
+          else if (checkMiddle === 1) {
+            setX(it1);
+            afterMiddleTactic = 1;
+          } else if (checkMiddle === 2) {
+            setX(it3);
+            afterMiddleTactic = 2;
+          } else if (checkMiddle === 3) {
+            setX(it7);
+            afterMiddleTactic = 3;
+          } else if (checkMiddle === 4) {
+            setX(it9);
+            afterMiddleTactic = 4;
+          }
+        }, 200);
+      }
+    }
+
+    // === if now symbol has been selected === //
     if (startingSymbol === undefined) {
       const alert = document.querySelector('.pickPoint');
       alert.classList.add('alert');
@@ -174,112 +338,3 @@ items.forEach((item) => {
     }
   });
 });
-
-//=== Computer's AI ====//
-function AImove() {
-  let i = false;
-
-  while (i === false) {
-    const arrayItems = Array.from(items);
-    const every = arrayItems.every((item) => {
-      return (
-        item.classList[2] === 'marked-x' || item.classList[2] === 'marked-o'
-      );
-    });
-    if (every) {
-      i = true;
-      break;
-    }
-
-    i = false;
-    const random = Math.ceil(Math.random() * 9);
-    const div = document.querySelector(`.it${random}`);
-    // console.log(div);
-    if (
-      !div.classList.contains('marked-x') &&
-      !div.classList.contains('marked-o')
-    ) {
-      setO(div);
-      i = true;
-    }
-  }
-}
-
-function checkCorner() {
-  if (
-    (it1.classList.contains('marked-x') && it5.classList[2] === undefined) ||
-    (it3.classList.contains('marked-x') && it5.classList[2] === undefined) ||
-    (it7.classList.contains('marked-x') && it5.classList[2] === undefined) ||
-    (it9.classList.contains('marked-x') && it5.classList[2] === undefined)
-  ) {
-    return true;
-  }
-}
-
-function checkTwoCorneres() {
-  if (
-    (it1.classList.contains('marked-x') &&
-      it9.classList.contains('marked-x') &&
-      it2.classList[2] === undefined &&
-      it4.classList[2] === undefined &&
-      it6.classList[2] === undefined &&
-      it8.classList[2] === undefined) ||
-    (it3.classList.contains('marked-x') &&
-      it7.classList.contains('marked-x') &&
-      it2.classList[2] === undefined &&
-      it4.classList[2] === undefined &&
-      it6.classList[2] === undefined &&
-      it8.classList[2] === undefined)
-  ) {
-    return true;
-  }
-}
-
-function AIwinMove() {
-  const groups = [
-    // Line groups
-    [it1, it2, it3],
-    [it4, it5, it6],
-    [it7, it8, it9],
-
-    // Column groups
-    [it1, it4, it7],
-    [it2, it5, it8],
-    [it3, it6, it9],
-
-    // Diagonals
-    [it7, it5, it3],
-    [it9, it5, it1],
-  ];
-
-  let startingVariable = 0;
-  let unmarkedItem = null;
-
-  groups.forEach((group) => {
-    startingVariable = 0;
-    for (let i = 0; i < group.length; i++) {
-      let hasThree = group.every((item) => {
-        return (
-          item.classList[2] === 'marked-x' || item.classList[2] === 'marked-o'
-        );
-      });
-      if (hasThree) {
-        return;
-      }
-
-      if (group[i].classList.contains('marked-o')) {
-        startingVariable++;
-        // console.log(startingVariable);
-      }
-      if (startingVariable === 2) {
-        unmarkedItem = group.filter((item) => {
-          return !item.classList.contains('marked-o');
-        });
-        // console.log('O has won');
-        break;
-      }
-    }
-  });
-
-  return unmarkedItem;
-}
