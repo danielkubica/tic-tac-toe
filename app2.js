@@ -90,12 +90,14 @@ items.forEach((item) => {
             if (!afterMiddleTactic) {
               // === after tactic 2 === //
               if (afterTactic2(checkTactic2) === true) {
+                console.log('after tactic 2');
                 return;
               }
 
               // === PC win move if two Os are togeher ===//
               let twoOtogether = AIwinMove();
               if (twoOtogether) {
+                console.log('ai win move');
                 console.log(twoOtogether);
                 let div = twoOtogether[0];
                 setO(div);
@@ -108,12 +110,22 @@ items.forEach((item) => {
 
               // === check corner 1 === //
               if (checkCorner()) {
-                setO(it5);
-                return;
+                let twoTogetherCorner = checkSquare();
+                if (twoTogetherCorner) {
+                  console.log('check corner but need block');
+                  let div = twoTogetherCorner[0];
+                  setO(div);
+                  return;
+                } else {
+                  console.log('check corner');
+                  setO(it5);
+                  return;
+                }
               }
 
               // === check corner 2 === //
               if (checkTwoCorneres()) {
+                console.log('check two corners');
                 let randomNumber = Math.ceil(Math.random() * 4);
                 switch (randomNumber) {
                   case 1:
@@ -135,54 +147,89 @@ items.forEach((item) => {
               // === checking if two Xs are together === //
               let twoTogether = checkSquare();
               if (twoTogether) {
-                console.log(twoTogether);
+                console.log('two together need block');
                 let div = twoTogether[0];
                 setO(div);
               } else {
                 // === random PC move if everything else not valid === //
                 AImove();
+                console.log('random move');
               }
             }
             // === this executes if middle tactic was played === //
             else {
-              switch (afterMiddleTactic) {
-                case 1:
-                  if (it3.classList[2] === undefined) {
-                    setO(it3);
-                  } else {
-                    setO(it7);
-                  }
-                  afterMiddleTactic = undefined;
-                  break;
-                case 2:
-                  if (it1.classList[2] === undefined) {
-                    setO(it1);
-                  } else {
-                    setO(it9);
-                  }
-                  afterMiddleTactic = undefined;
-                  break;
-                case 3:
-                  if (it1.classList[2] === undefined) {
-                    setO(it1);
-                  } else {
-                    setO(it9);
-                  }
-                  afterMiddleTactic = undefined;
-                  break;
-                case 4:
-                  if (it3.classList[2] === undefined) {
-                    setO(it3);
-                  } else {
-                    setO(it7);
-                  }
-                  afterMiddleTactic = undefined;
-                  break;
+              let twoOtogether = AIwinMove();
+              if (twoOtogether) {
+                console.log('ai win move');
+                console.log(twoOtogether);
+                let div = twoOtogether[0];
+                setO(div);
+                let winO = checkWin();
+                if (winO === 'win-o') {
+                  return;
+                }
+                return;
+              }
+              let twoTogetherMiddle = checkSquare();
+              if (twoTogetherMiddle) {
+                console.log('tactic two but need block');
+                let div = twoTogetherMiddle[0];
+                setO(div);
+                return;
+              } else {
+                console.log('tactic two executed');
+                switch (afterMiddleTactic) {
+                  case 1:
+                    if (it3.classList[2] === undefined) {
+                      setO(it3);
+                    } else if (it7.classList[2] === undefined) {
+                      setO(it7);
+                    } else {
+                      AImove();
+                      console.log('ai move in tactic two');
+                    }
+                    afterMiddleTactic = undefined;
+                    break;
+                  case 2:
+                    if (it1.classList[2] === undefined) {
+                      setO(it1);
+                    } else if (it9.classList[2] === undefined) {
+                      setO(it9);
+                    } else {
+                      AImove();
+                      console.log('ai move in tactic two');
+                    }
+                    afterMiddleTactic = undefined;
+                    break;
+                  case 3:
+                    if (it1.classList[2] === undefined) {
+                      setO(it1);
+                    } else if (it9.classList[2] === undefined) {
+                      setO(it9);
+                    } else {
+                      AImove();
+                      console.log('ai move in tactic two');
+                    }
+                    afterMiddleTactic = undefined;
+                    break;
+                  case 4:
+                    if (it3.classList[2] === undefined) {
+                      setO(it3);
+                    } else if (it7.classList[2] === undefined) {
+                      setO(it7);
+                    } else {
+                      AImove();
+                      console.log('ai move in tactic two');
+                    }
+                    afterMiddleTactic = undefined;
+                    break;
+                }
               }
             }
           }
           // === middle tactic true then this execution === //
           else if (checkMiddle === 1) {
+            console.log('middle tactic first move');
             setO(it1);
             afterMiddleTactic = 1;
           } else if (checkMiddle === 2) {
@@ -237,8 +284,16 @@ items.forEach((item) => {
 
               // === check corner 1 === //
               if (checkCorner_O()) {
-                setX(it5);
-                return;
+                let twoTogetherCorner = checkSquare_O();
+                if (twoTogetherCorner) {
+                  console.log('check corner but need block');
+                  let div = twoTogetherCorner[0];
+                  setX(div);
+                  return;
+                } else {
+                  setX(it5);
+                  return;
+                }
               }
 
               // === check corner 2 === //
@@ -274,39 +329,71 @@ items.forEach((item) => {
             }
             // === this executes if middle tactic was played === //
             else {
-              switch (afterMiddleTactic) {
-                case 1:
-                  if (it3.classList[2] === undefined) {
-                    setX(it3);
-                  } else {
-                    setX(it7);
-                  }
-                  afterMiddleTactic = undefined;
-                  break;
-                case 2:
-                  if (it1.classList[2] === undefined) {
-                    setX(it1);
-                  } else {
-                    setX(it9);
-                  }
-                  afterMiddleTactic = undefined;
-                  break;
-                case 3:
-                  if (it1.classList[2] === undefined) {
-                    setX(it1);
-                  } else {
-                    setX(it9);
-                  }
-                  afterMiddleTactic = undefined;
-                  break;
-                case 4:
-                  if (it3.classList[2] === undefined) {
-                    setX(it3);
-                  } else {
-                    setX(it7);
-                  }
-                  afterMiddleTactic = undefined;
-                  break;
+              let twoOtogether = AIwinMove_O();
+              if (twoOtogether) {
+                console.log('ai win move');
+                console.log(twoOtogether);
+                let div = twoOtogether[0];
+                setX(div);
+                let winX = checkWin();
+                if (winX === 'win-x') {
+                  return;
+                }
+                return;
+              }
+              let twoTogetherMiddle = checkSquare_O();
+              if (twoTogetherMiddle) {
+                console.log('tactic two but need block');
+                let div = twoTogetherMiddle[0];
+                setX(div);
+                return;
+              } else {
+                switch (afterMiddleTactic) {
+                  case 1:
+                    if (it3.classList[2] === undefined) {
+                      setX(it3);
+                    } else if (it7.classList[2] === undefined) {
+                      setX(it7);
+                    } else {
+                      AImove_O();
+                      console.log('ai move in tactic two');
+                    }
+                    afterMiddleTactic = undefined;
+                    break;
+                  case 2:
+                    if (it1.classList[2] === undefined) {
+                      setX(it1);
+                    } else if (it9.classList[2] === undefined) {
+                      setX(it9);
+                    } else {
+                      AImove_O();
+                      console.log('ai move in tactic two');
+                    }
+                    afterMiddleTactic = undefined;
+                    break;
+                  case 3:
+                    if (it1.classList[2] === undefined) {
+                      setX(it1);
+                    } else if (it9.classList[2] === undefined) {
+                      setX(it9);
+                    } else {
+                      AImove_O();
+                      console.log('ai move in tactic two');
+                    }
+                    afterMiddleTactic = undefined;
+                    break;
+                  case 4:
+                    if (it3.classList[2] === undefined) {
+                      setX(it3);
+                    } else if (it7.classList[2] === undefined) {
+                      setX(it7);
+                    } else {
+                      AImove_O();
+                      console.log('ai move in tactic two');
+                    }
+                    afterMiddleTactic = undefined;
+                    break;
+                }
               }
             }
           }
