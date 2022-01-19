@@ -9,6 +9,7 @@ import AImove from './src/AImove.js';
 import checkCorner from './src/checkCorner.js';
 import checkTwoCorneres from './src/checkTwoCorners.js';
 import checkMiddleTactic from './src/checkMiddleTactic.js';
+import displayWin from './src/display_win.js';
 
 // === modules for if O selected === //
 import checkMiddleTactic_O from './src/for_symbol_O/checkMiddle_O.js';
@@ -76,8 +77,9 @@ items.forEach((item) => {
     ) {
       // === player move setting X === //
       setX(item);
-      let winX = checkWin();
-      if (winX === 'win-x') {
+      let { win, winGroup } = checkWin();
+      if (win === 'win-x') {
+        displayWin(winGroup);
         return;
       } else {
         // === if Player didn't win then PC move plays === //
@@ -101,9 +103,9 @@ items.forEach((item) => {
                 console.log(twoOtogether);
                 let div = twoOtogether[0];
                 setO(div);
-                let winO = checkWin();
-                if (winO === 'win-o') {
-                  return;
+                let { win, winGroup } = checkWin();
+                if (win === 'win-o') {
+                  displayWin(winGroup);
                 }
                 return;
               }
@@ -164,8 +166,9 @@ items.forEach((item) => {
                 console.log(twoOtogether);
                 let div = twoOtogether[0];
                 setO(div);
-                let winO = checkWin();
-                if (winO === 'win-o') {
+                let { win, winGroup } = checkWin();
+                if (win === 'win-o') {
+                  displayWin(winGroup);
                   return;
                 }
                 return;
@@ -252,8 +255,9 @@ items.forEach((item) => {
     else if (startingSymbol === 0) {
       // === player move setting O === //
       setO(item);
-      let winX = checkWin();
-      if (winX === 'win-o') {
+      let { win, winGroup } = checkWin();
+      if (win === 'win-o') {
+        displayWin(winGroup);
         return;
       } else {
         // === if Player didn't win then PC move plays === //
@@ -275,9 +279,9 @@ items.forEach((item) => {
                 console.log(twoOtogether);
                 let div = twoOtogether[0];
                 setX(div);
-                let winO = checkWin();
-                if (winO === 'win-x') {
-                  return;
+                let { win, winGroup } = checkWin();
+                if (win === 'win-x') {
+                  displayWin(winGroup);
                 }
                 return;
               }
@@ -335,8 +339,9 @@ items.forEach((item) => {
                 console.log(twoOtogether);
                 let div = twoOtogether[0];
                 setX(div);
-                let winX = checkWin();
-                if (winX === 'win-x') {
+                let { win, winGroup } = checkWin();
+                if (win === 'win-x') {
+                  displayWin(winGroup);
                   return;
                 }
                 return;

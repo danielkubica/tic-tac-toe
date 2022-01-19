@@ -1,0 +1,145 @@
+#win-elem {
+  position: relative;
+}
+
+.win-line-1 {
+  transition-property: background-color;
+  transition-duration: 1s;
+  display: block;
+  background-color: rgb(102, 0, 0);
+  width: 350%;
+  height: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transform-origin: center;
+  z-index: 1;
+}
+
+.win-line-2 {
+  transition-property: background-color;
+  transition-duration: 1s;
+  display: block;
+  background-color: rgb(102, 0, 0);
+  width: 300%;
+  height: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  transform-origin: center;
+  z-index: 1;
+}
+
+.win-line-3 {
+  transition-property: background-color;
+  transition-duration: 1s;
+  display: block;
+  background-color: rgb(102, 0, 0);
+  width: 350%;
+  height: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transform-origin: center;
+  z-index: 1;
+}
+
+.win-line-4 {
+  transition-property: background-color;
+  transition-duration: 1s;
+  display: block;
+  background-color: rgb(102, 0, 0);
+  width: 300%;
+  height: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  transform-origin: center;
+  z-index: 1;
+}
+
+/* ========================================================== */
+
+.win-top {
+  transition-property: background-color;
+  transition-duration: 1s;
+  display: block;
+  background-color: rgb(102, 0, 0);
+  width: 300%;
+  height: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  transform-origin: center;
+  z-index: 1;
+}
+
+.win-bottom {
+  transition-property: background-color;
+  transition-duration: 1s;
+  display: block;
+  background-color: rgb(102, 0, 0);
+  width: 300%;
+  height: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  transform-origin: center;
+  z-index: 1;
+}
+
+.win-left {
+  transition-property: background-color;
+  transition-duration: 1s;
+  display: block;
+  background-color: rgb(102, 0, 0);
+  width: 300%;
+  height: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  transform-origin: center;
+  z-index: 1;
+}
+
+.win-right {
+  transition-property: background-color;
+  transition-duration: 1s;
+  display: block;
+  background-color: rgb(102, 0, 0);
+  width: 300%;
+  height: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  transform-origin: center;
+  z-index: 1;
+}
+
+.win-center {
+  position: absolute;
+}
+
+.top-win {
+  position: absolute;
+}
+
+.bottom-win {
+  position: absolute;
+}
+
+.right-win {
+  position: absolute;
+}
+
+.left-win {
+  position: absolute;
+}

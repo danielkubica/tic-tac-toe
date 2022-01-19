@@ -18,6 +18,7 @@ function checkWin() {
   ];
 
   let win = false;
+  let winningGroup = undefined;
 
   for (let i = 0; i < groups.length; i++) {
     let everyX = groups[i].every((item) => {
@@ -27,6 +28,7 @@ function checkWin() {
       console.log('WIN-X');
       // need to add win conditions for both X and O sparate
       win = 'win-x';
+      winningGroup = groups[i];
       break;
     }
 
@@ -36,11 +38,12 @@ function checkWin() {
     if (everyO) {
       console.log('WIN-O');
       win = 'win-o';
+      winningGroup = groups[i];
       break;
     }
   }
 
-  return win;
+  return { win: win, winGroup: winningGroup };
 }
 
 export default checkWin;

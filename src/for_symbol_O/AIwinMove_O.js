@@ -40,7 +40,6 @@ function AIwinMove_O() {
         unmarkedItem = group.filter((item) => {
           return !item.classList.contains('marked-x');
         });
-        // console.log('O has won');
         break;
       }
     }
